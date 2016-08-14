@@ -43,7 +43,7 @@ gluon_vm = { path = "vm", version = "0.1.2" }
 skeptic = "0.6"
 
 [dev-dependencies]
-skeptic = "0.6"
+skeptic = "0.6.1"
 
 [features]
 default = ["repl"]
