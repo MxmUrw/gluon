@@ -261,7 +261,12 @@ impl<Id> LExpr<Id>
     pub fn span<'a>(&self, env: &(DisplayEnv<Ident = Id> + 'a)) -> Span {
         use self::Expr::*;
         let end = match self.value {
-            Identifier(ref id) => self.location.line_offset(CharPos(env.string(id).len())),
+            Identifier(ref id) => {
+                let name = env.string(id);
+                // Remove the `:<location>` suffix generated when renaming creates a unique name
+                let offset = name.split(':').next().unwrap_or(name).len();
+                self.location.line_offset(CharPos::from(offset))
+            }
             Literal(ref lit) => {
                 use self::LiteralEnum::*;
                 match *lit {
