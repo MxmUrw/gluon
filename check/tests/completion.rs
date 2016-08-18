@@ -30,7 +30,7 @@ fn suggest(s: &str, location: Location) -> Result<Vec<String>, ()> {
     let mut vec: Vec<String> = {
         completion::suggest(&env, &typ_env, &mut expr, location)
             .into_iter()
-            .map(|ident| ident.name.declared_name().to_string())
+            .map(|ident| ident.name)
             .collect()
     };
     vec.sort();
